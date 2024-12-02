@@ -27,7 +27,7 @@ fn main() {
 
     let mut dist: Vec<i32> = vec![];
     // Zip the 2 lists and calculate each distance
-    for pair in zip(list1, list2) {
+    for pair in zip(list1.clone(), list2.clone()) {
         let res: i32 = pair.0 - pair.1;
         dist.insert(dist.len(), res.abs());
     }
@@ -38,4 +38,15 @@ fn main() {
         total_distance+=elem;
     }
     println!("Total Distance is {}", total_distance);
+
+    // Part Two
+    let mut similarity_score: i32 = 0;
+
+    for elem in list1.clone() {
+        let count =list2.iter() // iterate the list so we can filter
+            .filter(|x| **x == elem) // filter list1 for values matching the element from list2
+            .count(); // count up the values left
+        similarity_score+=elem*(count as i32); // treat count usize as an integer and work out the similarity score for the element add add it to the total
+    }
+    println!("Similarity_score is {}",similarity_score);
 }
